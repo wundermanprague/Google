@@ -1,5 +1,5 @@
 {
-	"name": "wundermanprague/kdyby-google",
+	"name": "wunderman/kdyby-google",
 	"type": "library",
 	"description": "Google API wrapper and authentication for Nette Framework",
 	"keywords": ["nette", "google", "authentication", "auth", "login"],
