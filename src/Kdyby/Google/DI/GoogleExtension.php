@@ -126,7 +126,7 @@ class GoogleExtension extends CompilerExtension
 		}
 
 		$builder->addDefinition($this->prefix('apiClient'))
-			->setClass('Google_Client', array($this->prefix('@apiConfig')))
+			->setClass('Google_Client')
 			->addSetup('$this->addService(?, ?)', array($this->prefix('apiClient'), '@self'))
 			->addSetup('?->configureClient(?)', array($this->prefix('@config'), '@self'))
 			->addSetup('setIo', array($this->prefix('@apiIo')))

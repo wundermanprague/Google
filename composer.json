@@ -1,5 +1,5 @@
 {
-	"name": "kdyby/google",
+	"name": "wunderman/kdyby-google",
 	"type": "library",
 	"description": "Google API wrapper and authentication for Nette Framework",
 	"keywords": ["nette", "google", "authentication", "auth", "login"],
@@ -21,8 +21,7 @@
 		}
 	],
 	"require": {
-		"nette/nette": "~2.1@dev",
-
+	  	"tracy/tracy": "^2.4",
 		"ext-curl": "*",
 		"ext-json": "*",
 		"google/apiclient": "~1.1"

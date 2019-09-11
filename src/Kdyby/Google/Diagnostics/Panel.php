@@ -13,6 +13,7 @@ namespace Kdyby\Google\Diagnostics;
 use Google_Exception;
 use Google_Http_Request;
 use Kdyby\Google\IO\Curl;
+use Latte\Helpers;
 use Nette\Utils\Html;
 use Nette;
 use Tracy\Debugger;
@@ -45,7 +46,7 @@ if (!class_exists('Tracy\Dumper')) {
  * @property callable $failure
  * @property callable $success
  */
-class Panel extends Nette\Object implements IBarPanel
+class Panel  implements IBarPanel
 {
 
 	/**
@@ -94,7 +95,8 @@ class Panel extends Nette\Object implements IBarPanel
 		}
 
 		ob_start();
-		$esc = array('Nette\Templating\Helpers', 'escapeHtml');
+
+		$esc = array('\Tracy\Helpers', 'escapeHtml');
 		$click = class_exists('\Tracy\Dumper')
 			? function ($o, $c = FALSE) {
 				return \Tracy\Dumper::toHtml($o, array('collapse' => $c));
@@ -178,9 +180,9 @@ class Panel extends Nette\Object implements IBarPanel
 
 	public function register(Curl $client)
 	{
-		$client->onRequest[] = $this->begin;
-		$client->onError[] = $this->error;
-		$client->onSuccess[] = $this->success;
+		$client->onRequest[] = [$this, 'begin'];
+		$client->onError[] = [$this, 'failure'];
+		$client->onSuccess[] = [$this, 'success'];
 
 		self::getDebuggerBar()->addPanel($this);
 	}
@@ -192,7 +194,7 @@ class Panel extends Nette\Object implements IBarPanel
 	 */
 	private static function getDebuggerBar()
 	{
-		return method_exists('Tracy\Debugger', 'getBar') ? Debugger::getBar() : Debugger::$bar;
+		return Debugger::getBar();
 	}
 
 }
